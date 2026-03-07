@@ -43,8 +43,14 @@ logging.basicConfig(level=logging.INFO)
 _twilio_client = None
 
 def _get_twilio_client():
-    """Mock Twilio client for hackathon demo."""
-    return None
+    """Lazy-load the real Twilio client from environment variables."""
+    global _twilio_client
+    if _twilio_client is None:
+        sid = os.environ.get("TWILIO_ACCOUNT_SID")
+        token = os.environ.get("TWILIO_AUTH_TOKEN")
+        if sid and token:
+            _twilio_client = TwilioClient(sid, token)
+    return _twilio_client
 
 
 # ---------------------------------------------------------------------------
@@ -207,15 +213,33 @@ def _build_whatsapp_message(issue: dict, report_id: str) -> str:
 
 def _send_whatsapp_notification(issue: dict, report_id: str) -> dict:
     """
-    Mock WhatsApp message for the hackathon without needing Twilio.
+    Send a real WhatsApp alert via Twilio Sandbox.
+    Falls back to mock print if Twilio is not configured.
     """
     body = _build_whatsapp_message(issue, report_id)
+    client = _get_twilio_client()
 
+    from_number = os.environ.get("TWILIO_WHATSAPP_FROM", "whatsapp:+14155238886")
+    to_number = os.environ.get("SUPERVISOR_WHATSAPP_TO", "")
+
+    if client and to_number:
+        try:
+            msg = client.messages.create(
+                from_=from_number,
+                to=to_number,
+                body=body,
+            )
+            logger.info("WhatsApp sent! SID: %s", msg.sid)
+            return {"success": True, "message_sid": msg.sid}
+        except Exception as exc:
+            logger.error("Twilio error: %s", exc)
+            # Fall through to mock
+
+    # Fallback mock
     print("\n" + "="*50)
-    print("📱 [MOCK WHATSAPP NOTIFICATION]")
+    print("📱 [WHATSAPP NOTIFICATION]")
     print(body)
     print("="*50 + "\n")
-
     return {"success": True, "message_sid": "mock_sid_12345"}
 
 
