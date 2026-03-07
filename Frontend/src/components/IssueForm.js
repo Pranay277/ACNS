@@ -21,16 +21,16 @@ const ISSUE_TYPES = [
 
 // Example campus locations – replace with real data from your campus
 const LOCATIONS = [
-  'Main Library',
-  'Science Building',
-  'Student Center',
-  'Engineering Hall',
-  'Arts Building',
+  'Arts College',
+  'Engineering College',
+  'Science College',
+  'Administrative Building',
+  'University Library',
+  'MBA Department',
+  'Law College',
   'Sports Complex',
-  'Parking Garage A',
-  'Dormitory West',
-  'Administration Block',
-  'Cafeteria',
+  'Jubilee Hall',
+  'Main Gate',
 ];
 
 const IssueForm = () => {
