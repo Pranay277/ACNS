@@ -13,7 +13,7 @@ const MapView = ({ route = null, markers = [] }) => {
     if (!L) return;
 
     const map = L.map(mapContainerRef.current, {
-      center: [17.4139, 78.5380], // Osmania University, Hyderabad
+      center: [17.4189, 78.5265], // Osmania University Arts College, Hyderabad
       zoom: 16,
     });
 
