@@ -1,0 +1,16 @@
+{
+  "name": "ou-hackathon",
+  "version": "1.0.0",
+  "description": "Osmania University Accessibility Navigation System",
+  "scripts": {
+    "start": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
+    "start-backend": "cd backend && python app.py",
+    "start-frontend": "cd Frontend && npm start",
+    "install-all": "npm run install-backend && npm run install-frontend",
+    "install-backend": "cd backend && pip install -r requirements.txt",
+    "install-frontend": "cd Frontend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

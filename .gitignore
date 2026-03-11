@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.env
+.venv
+*.sqlite3
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.DS_Store
+
+# Frontend build
+Frontend/build/
+Frontend/dist/
+
+# API Keys and Secrets
+.env
+backend/.env
+Frontend/.env
+backend/serviceAccountKey.json
+
+# IDEs
+.vscode/
+.idea/
